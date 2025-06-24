@@ -1,0 +1,24 @@
+javascript:
+语法教程基本上就是给我代码的意义点分类
+比如obj对象声明语法，是一个意义点
+还有就是代码里面的一些看不懂的意义点
+
+
+
+let obj = {
+    birth: 1990,
+    getAge: function () {
+        let b = this.birth; // 1990
+        let fn = () => new Date().getFullYear() - this.birth; // this指向obj对象
+        return fn();
+    }
+};
+obj.getAge(); // 25
+/***
+箭头函数,里面的this现在固定时指外层obj
+函数里面可以使用全局类，方法，变量，也就是可见性
+let
+一个对象的声明语法，里面有birth，有getAage函数，函数里面可以定义一个fn箭头函数赋值给变量然后返回这个指代函数的变量
+
+
+
