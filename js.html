@@ -24,12 +24,12 @@ let obj = {
     }
 };
 obj.getAge(); // 25
-/***
+```
 箭头函数,里面的this现在固定时指外层obj
 函数里面可以使用全局类，方法，变量，也就是可见性
 let
 一个对象的声明语法，里面有birth，有getAage函数，函数里面可以定义一个fn箭头函数赋值给变量然后返回这个指代函数的变量
-
+```
 
 2、
 生成器
@@ -40,4 +40,35 @@ generator由function*定义（注意多出的*号）
 可以记住执行状态的函数
 就是与一个状态
 其实对象也是有一个状态，比如对象的属性
+
+3
+const scrollToBottom = () => {
+  setTimeout(() => {
+    const container = document.querySelector('.messageai')
+    if (container) {
+      container.scrollTop = container.scrollHeight
+    }
+  }, 100)
+}
+```
+定义了一个函数，无参数的箭头函数，setTimeout函数里面参数一个是函数，一个是int，其实setTimeout()已经执行了
+不过他是赋值给scrollToBottom，所以还没执行
+```
+
+
+const renderMarkdown = (text) => {
+  return marked(text || '')
+}
+很多这种函数的定义
+marked(text || '') 如果text为null 那么 ''
+
+
+？？？
+promise格式
+
+
+
+
+
+
 
