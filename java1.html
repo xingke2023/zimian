@@ -1,0 +1,44 @@
+Java的注解可以分为三类
+第一类是由编译器使用的注解
+@Override：让编译器检查该方法是否正确地实现了覆写
+@SuppressWarnings：告诉编译器忽略此处代码产生的警告
+这类注解不会被编译进入.class文件，它们在编译后就被编译器扔掉了
+第三类是在程序运行期能够读取的注解，它们在加载后一直存在于JVM中，这也是最常用的注解
+例如，一个配置了@PostConstruct的方法会在调用构造方法后自动被调用（这是Java代码读取该注解实现的功能，JVM并不会识别该注解）
+
+注解在定义时就已经确定了每个参数的值
+注解的配置参数可以有默认值，缺少某个配置参数时将使用默认值
+大部分注解会有一个名为value的配置参数，对此参数赋值，可以只写常量，相当于省略了value参数
+
+
+编译上面的代码，仍然需要引用Person类。不然，去掉import语句，你看能不能编译通过？
+所以，反射是为了解决在运行期，对某个实例一无所知的情况下，如何调用其方法
+
+每加载一种class，JVM就为其创建一个Class类型的实例
+以String类为例，当JVM加载String类时，它首先读取String.class文件到内存，然后，为String类创建一个Class实例并关联起来
+Class cls = new Class(String);
+
+这个Class实例是JVM内部创建的，如果我们查看JDK源码，可以发现Class类的构造方法是private，只有JVM能创建Class实例，我们自己的Java程序是无法创建Class实例的
+
+JVM持有的每个Class实例都指向一个数据类型（class或interface）
+
+一个Class实例包含了该class的所有完整信息
+在实例中保存了该class的所有信息，包括类名、包名、父类、实现的接口、所有方法、字段等
+如果获取了某个Class实例，我们就可以通过这个Class实例获取到该实例对应的class的所有信息
+
+这种通过Class实例获取class信息的方法称为反射（Reflection）
+
+如何获取一个class的Class实例？有三个方法：
+方法一：直接通过一个class的静态变量class获取：
+Class cls = String.class;
+方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取：
+String s = "Hello";
+Class cls = s.getClass();
+方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取：
+Class cls = Class.forName("java.lang.String");
+因为Class实例在JVM中是唯一的，所以，上述方法获取的Class实例是同一个实例
+
+用instanceof不但匹配指定类型，还匹配指定类型的子类。而用==判断class实例可以精确地判断数据类型，但不能作子类型比较
+通常情况下，我们应该用instanceof判断数据类型，因为面向抽象编程的时候，我们不关心具体的子类型。只有在需要精确判断一个类型是不是某个class的时候，我们才使用==判断class实例
+
+
