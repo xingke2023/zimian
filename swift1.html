@@ -1,9 +1,16 @@
-函数
+
 
 指定函数返回类型时，用返回箭头 ->（一个连字符后跟一个右尖括号）后跟返回类型的名称的方式来表示
 接收什么作为参数和执行结束时它返回的结果是什么类型。这样的定义使得函数可以在别的地方以一种清晰的方式被调用
 函数标签如果没有，就默认和函数参数名一致
 
+一个很重要的就是把知道的列出来，把不知道的也列出来
+主要就是代码中看得懂的地方和看不懂的地方
+如果教程太复杂，那么就只看代码能不能看懂
+
+
+
+函数
 func minMax(array: [Int]) -> (min: Int, max: Int){
 }
 元组的成员不需要在元组从函数中返回时命名，因为它们的名字已经在函数返回类型中指定了
@@ -106,6 +113,102 @@ func chooseStepFunction(backward: Bool) -> (Int) -> Int {
     func stepForward(input: Int) -> Int { return input + 1 }
     func stepBackward(input: Int) -> Int { return input - 1 }
     return backward ? stepBackward : stepForward
+}
+
+？？
+实例下标是在特定类型的一个实例上调用的下标
+通过在 subscript 关键字之前写下 static 关键字的方式来表示一个类型下标
+
+
+
+扩展可以给一个现有的类，结构体，枚举，还有协议添加新的功能
+不需要访问被扩展类型源代码就能完成扩展的能力
+扩展和 Objective-C 的分类很相似
+与 Objective-C 分类不同的是，Swift 扩展是没有名字的。
+
+Swift 中的扩展可以：
+添加计算型实例属性和计算型类属性
+定义实例方法和类方法
+提供新的构造器
+定义下标
+定义和使用新的嵌套类型
+使已经存在的类型遵循（conform）一个协议
+
+扩展可以给一个类型添加新的功能，但是不能重写已经存在的功能
+
+可变实例方法
+extension Int {
+    mutating func square() {
+        self = self * self
+    }
+}
+var someInt = 3
+someInt.square()
+
+
+
+使用 enum 关键词来创建枚举并且把它们的整个定义放在一对大括号内：
+enum SomeEnumeration {
+    // 枚举定义放在这里
+}
+
+enum CompassPoint {
+    case north
+    case south
+    case east
+    case west
+}
+与 C 和 Objective-C 不同，Swift 的枚举成员在被创建时不会被赋予一个默认的整型值
+
+多个成员值可以出现在同一行上，用逗号隔开：
+enum Planet {
+    case mercury, venus, earth, mars, jupiter, saturn, uranus, neptune
+}
+
+var directionToHead = CompassPoint.west
+每个枚举定义了一个全新的类型
+directionToHead 的类型可以在它被 CompassPoint 的某个值初始化时推断出来。一旦 directionToHead 被声明为 CompassPoint 类型，你可以使用更简短的点语法将其设置为另一个 CompassPoint 的值：
+directionToHead = .east
+当 directionToHead 的类型已知时，再次为其赋值可以省略枚举类型名
+
+使用 Switch 语句匹配枚举值
+你可以使用 switch 语句匹配单个枚举值：
+directionToHead = .south
+switch directionToHead {
+case .north:
+    print("Lots of planets have a north")
+case .south:
+    print("Watch out for penguins")
+case .east:
+    print("Where the sun rises")
+case .west:
+    print("Where the skies are blue")
+}
+
+
+它只是定义了，当 Barcode 常量和变量等于 Barcode.upc 或 Barcode.qrCode 时，可以存储的关联值的类型
+enum Barcode {
+    case upc(Int, Int, Int, Int)
+    case qrCode(String)
+}
+
+
+var productBarcode = Barcode.upc(8, 85909, 51226, 3)
+上面的例子创建了一个名为 productBarcode 的变量，并将 Barcode.upc 赋值给它，关联的元组值为 (8, 85909, 51226, 3)。
+
+可以在 switch 的 case 分支代码中提取每个关联值作为一个常量（用 let 前缀）或者作为一个变量（用 var 前缀）来使用
+switch productBarcode {
+case .upc(let numberSystem, let manufacturer, let product, let check):
+    print("UPC: \(numberSystem), \(manufacturer), \(product), \(check).")
+case .qrCode(let productCode):
+    print("QR code: \(productCode).")
+}
+
+switch productBarcode {
+case let .upc(numberSystem, manufacturer, product, check):
+    print("UPC: \(numberSystem), \(manufacturer), \(product), \(check).")
+case let .qrCode(productCode):
+    print("QR code: \(productCode).")
 }
 
 
