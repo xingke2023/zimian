@@ -17,3 +17,24 @@ class TriangleAndSquare {
 }
 
 
+可选链式调用是一种可以在当前值可能为 nil 的可选值上请求和调用属性、方法及下标的方法
+多个调用可以连接在一起形成一个调用链，如果其中任何一个节点为 nil，整个调用链都会失败，即返回 nil
+如果可选值有值，那么调用就会成功；如果可选值是 nil，那么调用将返回 nil
+
+if let roomCount = john.residence?.numberOfRooms {
+    print("John's residence has \(roomCount) room(s).")
+} else {
+    print("Unable to retrieve the number of rooms.")
+}
+在 residence 后面添加问号之后，Swift 就会在 residence 不为 nil 的情况下访问 numberOfRooms
+
+if let beginsWithThe =
+    john.residence?.address?.buildingIdentifier()?.hasPrefix("The") {
+        if beginsWithThe {
+            print("John's building identifier begins with \"The\".")
+        } else {
+            print("John's building identifier does not begin with \"The\".")
+        }
+}
+
+
