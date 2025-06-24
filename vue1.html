@@ -1,0 +1,46 @@
+有什么，没有什么
+
+比如一个页面有什么，有点击的响应方法
+都有响应式对象的概念，也就是说数据或者对象的更改会造成响应刷新
+
+
+引入的函数，比如，这是一个request外部post返回
+export function chatExcel(data) {
+  return request({
+    url: '/ai/chat_excel',
+    method: 'post',
+    data: data,
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}
+
+export function getMaterialLookPic(id) {
+    return request({
+        url: '/appl/material/lookPic/' + id,
+        method: 'get'
+    })
+}
+
+常用的引入
+常用的使用方法
+import Cookies from 'js-cookie'
+export function getToken() {
+  return Cookies.get(TokenKey)
+}
+
+
+const { proxy } = getCurrentInstance();
+proxy.$refs["uploadRef"].submit();
+proxy.resetForm("queryRef");
+对应文件中<el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
+proxy.$modal.msgSuccess("删除成功");
+proxy.$modal.msgError("请先选择要删除的明细数据");
+
+main.js里面
+引入了很多全局的组件，方法，use
+
+
+
+  
