@@ -1,3 +1,5 @@
+函数
+
 指定函数返回类型时，用返回箭头 ->（一个连字符后跟一个右尖括号）后跟返回类型的名称的方式来表示
 接收什么作为参数和执行结束时它返回的结果是什么类型。这样的定义使得函数可以在别的地方以一种清晰的方式被调用
 函数标签如果没有，就默认和函数参数名一致
@@ -50,3 +52,62 @@ someFunction(1, secondParameterName: 2)
 函数
 当默认值被定义后，调用这个函数时可以忽略这个参数
 将不带有默认值的参数放在函数参数列表的最前
+
+
+可变参数（variadic parameter）可以接受零个或多个值
+用可变参数来指定函数参数可以被传入不确定数量的输入值
+在变量类型名后面加入（...）的方式来定义可变参数
+可变参数的传入值在函数体中变为此类型的一个数组
+一个叫做 numbers 的 Double... 型可变参数，在函数体内可以当做一个叫 numbers 的 [Double] 型的数组常量
+
+
+
+输入输出参数
+可以看到 someInt 和 anotherInt 的原始值在 swapTwoInts(_:_:) 函数中被修改，尽管它们的定义在函数体外
+func swapTwoInts(_ a: inout Int, _ b: inout Int) {
+    let temporaryA = a
+    a = b
+    b = temporaryA
+}
+var someInt = 3
+var anotherInt = 107
+swapTwoInts(&someInt, &anotherInt)
+调用的时候要用&someInt
+输入输出参数是函数对函数体外产生影响的另一种方式
+
+
+函数类型
+每个函数都有种特定的函数类型，函数的类型由函数的参数类型和返回类型组成
+(Int, Int) -> Int
+
+在 Swift 中，使用函数类型就像使用其他类型一样。例如，你可以定义一个类型为函数的常量或变量，并将适当的函数赋值给它
+var mathFunction: (Int, Int) -> Int = addTwoInts
+
+
+函数类型作为参数类型
+你可以用 (Int, Int) -> Int 这样的函数类型作为另一个函数的参数类型
+
+函数类型作为返回类型
+func stepForward(_ input: Int) -> Int {
+    return input + 1
+}
+func stepBackward(_ input: Int) -> Int {
+    return input - 1
+}
+func chooseStepFunction(backward: Bool) -> (Int) -> Int {
+    return backward ? stepBackward : stepForward
+}
+
+
+嵌套函数
+可以把函数定义在别的函数体中，称作 嵌套函数（nested functions）
+嵌套函数是对外界不可见的，但是可以被它们的外围函数（enclosing function）调用。一个外围函数也可以返回它的某一个嵌套函数，使得这个函数可以在其他域中被使用
+func chooseStepFunction(backward: Bool) -> (Int) -> Int {
+    func stepForward(input: Int) -> Int { return input + 1 }
+    func stepBackward(input: Int) -> Int { return input - 1 }
+    return backward ? stepBackward : stepForward
+}
+
+
+
+
