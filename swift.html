@@ -1,1 +1,52 @@
-1
+指定函数返回类型时，用返回箭头 ->（一个连字符后跟一个右尖括号）后跟返回类型的名称的方式来表示
+接收什么作为参数和执行结束时它返回的结果是什么类型。这样的定义使得函数可以在别的地方以一种清晰的方式被调用
+函数标签如果没有，就默认和函数参数名一致
+
+func minMax(array: [Int]) -> (min: Int, max: Int){
+}
+元组的成员不需要在元组从函数中返回时命名，因为它们的名字已经在函数返回类型中指定了
+
+
+你可以通过在元组类型的右括号后放置一个问号来定义一个可选元组
+(Int, Int)? 或 (String, Int, Bool)?
+可选元组类型如 (Int, Int)? 与元组包含可选类型如 (Int?, Int?) 是不同的
+func minMax(array: [Int]) -> (min: Int, max: Int)? {
+}
+
+if let bounds = minMax(array: [8, -6, 2, 109, 3, 71]) {
+    print("min is \(bounds.min) and max is \(bounds.max)")
+}
+array:[8, -6, 2, 109, 3, 71] 是这个语言比较有特色的表达
+\() 也是一个字符串内部表达
+
+
+如果一个函数的整个函数体是一个单行表达式，这个函数可以隐式地返回这个表达式
+func greeting(for person: String) -> String {
+    "Hello, " + person + "!"
+}
+和
+func anotherGreeting(for person: String) -> String {
+    return "Hello, " + person + "!"
+}
+一样
+
+
+默认情况下，函数参数使用参数名称来作为它们的参数标签。
+func someFunction(firstParameterName: Int, secondParameterName: Int) {
+    // 在函数体内，firstParameterName 和 secondParameterName 代表参数中的第一个和第二个参数值
+}
+someFunction(firstParameterName: 1, secondParameterName: 2)
+参数标签的使用能够让一个函数在调用时更有表达力，更类似自然语言，并且仍保持了函数内部的可读性以及清晰的意图
+
+
+如果你不希望为某个参数添加一个标签，可以使用一个下划线（_）来代替一个明确的参数标签
+func someFunction(_ firstParameterName: Int, secondParameterName: Int) {
+     // 在函数体内，firstParameterName 和 secondParameterName 代表参数中的第一个和第二个参数值
+}
+someFunction(1, secondParameterName: 2)
+如果一个参数有一个标签，那么在调用的时候必须使用标签来标记这个参数，或者是默认的参数名称相同而已也是标签
+
+
+函数
+当默认值被定义后，调用这个函数时可以忽略这个参数
+将不带有默认值的参数放在函数参数列表的最前
