@@ -4,3 +4,127 @@
 组件的用法与原生的 HTML 标签完全一致，可以任意加入属性，比如 <HelloMessage name="John">
 组件的属性可以在组件类的 this.props 对象上获取
 添加组件属性，有一个地方需要注意，就是 class 属性需要写成 className ，for 属性需要写成 htmlFor ，这是因为 class 和 for 是 JavaScript 的保留字
+
+import { useQuery } from '@tanstack/react-query';
+
+function UserList() {
+  // useQuery接收查询配置对象
+  const { 
+    data,           // 查询返回的数据
+    isLoading,      // 首次加载状态
+    isFetching,     // 任何时候的获取状态
+    error,          // 错误信息
+    isError,        // 是否有错误
+    isSuccess,      // 是否成功
+    refetch         // 手动重新获取函数
+  } = useQuery({
+    queryKey: ['users'],  // 查询键，必须是数组
+    queryFn: async () => {
+      const response = await fetch('/api/users');
+      if (!response.ok) {
+        throw new Error('获取用户失败');
+      }
+      return response.json();
+    }
+  });
+
+  if (isLoading) return <div>加载中...</div>;
+  if (isError) return <div>错误: {error.message}</div>;
+
+  return (
+    <div>
+      <button onClick={() => refetch()}>刷新</button>
+      {data?.map(user => (
+        <div key={user.id}>{user.name}</div>
+      ))}
+    </div>
+  );
+}
+
+
+react前端如何与后端API配合实现用户登录态
+
+!--
+全局状态管理：如用户认证状态、主题设置、语言偏好等需要在多个组件中访问的全局数据
+避免通过中间组件传递不必要的 props
+在构建可复用的组件库时，Context 常用于在相关组件之间共享配置和状态
+Context 会导致使用它的所有组件在 Context 值发生变化时重新渲染
+
+
+const authAPI = {
+  // 登录
+  login: async (credentials) => {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include', // 包含cookies
+      body: JSON.stringify(credentials)
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || '登录失败');
+    }
+    
+    return response.json();
+  },
+  
+  // 刷新token
+  refreshToken: async () => {
+    const response = await fetch('/api/auth/refresh', {
+      method: 'POST',
+      credentials: 'include'
+    });
+    
+    if (!response.ok) {
+      throw new Error('Token刷新失败');
+    }
+    
+    return response.json();
+  },
+  
+  // 登出
+  logout: async () => {
+    const response = await fetch('/api/auth/logout', {
+      method: 'POST',
+      credentials: 'include'
+    });
+    return response.json();
+  },
+  
+  // 获取当前用户
+  getCurrentUser: async (token) => {
+    const response = await fetch('/api/auth/me', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error('获取用户信息失败');
+    }
+    
+    return response.json();
+  },
+  
+  // 受保护的API调用示例
+  getProtectedData: async (token) => {
+    const response = await fetch('/api/protected/users', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error('获取数据失败');
+    }
+    
+    return response.json();
+  }
+};
+
+
+useContext - 跨层级组件共享数据，避免props drilling问题。
+useMemo和useCallback - 性能优化相关，缓存计算结果和函数引用。
+自定义Hooks - 提取复用逻辑，是React进阶的重要技能。
+
