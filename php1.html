@@ -1,3 +1,63 @@
 有八个魔术常量它们的值随着它们在代码中的位置改变而改变
 __FILE__
 文件的完整路径和文件名
+
+
+class MyClass {
+    public static $staticProperty = 'value';
+    
+    public static function staticMethod() {
+        return self::$staticProperty;
+    }
+}
+
+// 访问静态成员
+echo MyClass::$staticProperty;
+echo MyClass::staticMethod();
+
+………………………………………………………………………………………………
+
+abstract class AbstractClass {
+    abstract protected function abstractMethod();
+    
+    public function concreteMethod() {
+        return "Concrete";
+    }
+}
+无非就是有些方法没有实现
+
+………………………………………………………………………………………………
+
+class MagicClass {
+    // 当访问不可访问属性时调用
+    public function __get($name) { /* ... */ }
+    public function __set($name, $value) { /* ... */ }
+    
+    // 当调用不可访问方法时调用
+    public function __call($name, $arguments) { /* ... */ }
+    public static function __callStatic($name, $arguments) { /* ... */ }
+    
+    // 当对象被当作字符串使用时调用
+    public function __toString() { /* ... */ }
+    
+    // 当对象被当作函数调用时使用
+    public function __invoke($param) { /* ... */ }
+}
+
+………………………………………………………………………………………………
+trait MyTrait {
+    public function traitMethod() {
+        return "From Trait";
+    }
+}
+
+class MyClass {
+    use MyTrait;
+}
+
+$obj = new MyClass();
+echo $obj->traitMethod(); // 输出 "From Trait"
+就是一些方法可以加到类里
+
+………………………………………………………………………………………………
+………………………………………………………………………………………………
