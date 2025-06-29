@@ -42,3 +42,10 @@ Class cls = Class.forName("java.lang.String");
 通常情况下，我们应该用instanceof判断数据类型，因为面向抽象编程的时候，我们不关心具体的子类型。只有在需要精确判断一个类型是不是某个class的时候，我们才使用==判断class实例
 
 
+
+
+Toast toast = Toast.makeText(this, "自定义位置 Toast", Toast.LENGTH_LONG);
+toast.setGravity(Gravity.CENTER, 0, 0);
+toast.show();
+字面意义点，Toast类的一个实例，用make构造方法制作一个，
+Gravity.CENTER是一些函数和值的集合
