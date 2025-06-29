@@ -4,3 +4,49 @@
 一个是那个request进来的方法文件，
 配置文件
 还有那个容器的实例事先导入的那个文件，有几个那个文件，就是确定了class和那个实例的对应关系的一个文件
+
+目录结构，每个文件是做什么的，里面有什么
+无非就是一个一级文件，还有目录里的
+
+
+有什么，没什么，
+有的是
+@extends('layout')
+双括号变量
+@section('content')
+
+@foreach($users as $user)
+<p>{{ $user->name }}</p>
+@endforeach
+
+
+
+blade.php文件的关系
+Laravel 模板系统：Blade
+Blade提供强大的功能，例如模板继承
+还有一些常用的PHP控制结构语法糖，例如 if 和 for
+
+
+
+您可以通过将扩展名为 .blade.php 的文件放在应用程序的 resources/views 目录中或使用 make：view Artisan 命令来创建视图
+也就是固定在那个文件夹生成blade文件
+.blade.php 扩展通知框架该文件包含 Blade 模板 。Blade 模板包含 HTML 以及 Blade 指令，这些指令允许您轻松回显值、创建“if”语句、迭代数据等。
+视图也可以嵌套在 resources/views 目录的子目录中
+“点”表示法可用于引用嵌套视图
+如果你的视图存储在 resources/views/admin/profile.blade.php
+return view('admin.profile', $data);
+你可以从应用程序的路由/控制器之一返回它
+
+
+
+可以使用全局视图帮助程序从路由或控制器返回 Blade 视图。
+可以使用视图帮助程序的第二个参数将数据传递给 Blade 视图
+如果要在模板的大部分中显示 JavaScript 变量，则可以将 HTML 括在 @verbatim 指令中，这样就不必在每个 Blade echo 语句前面加上 @ 符号：
+
+？
+您可以使用 Blade 的 @each 指令将 Loop 和 includes 合并为一行：
+
+Blade 组件标签以字符串 x- 开头，后跟组件类的 kebab 大小写名称
+
+https://docs.beikeshop.com/dev/9_hook.html#%E5%AE%9E%E4%BE%8B%E8%AE%B2%E8%A7%A3
+beike 开发教程
