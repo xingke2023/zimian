@@ -1,0 +1,31 @@
+
+$fruits = array("Apple", "Banana", "Orange");
+
+$colors = ["Red", "Green", "Blue"];
+
+// 关联数组
+$person = [
+    "name" => "Alice",
+    "age" => 30,
+    "city" => "New York"
+];
+
+foreach ($fruits as $fruit) {
+    echo $fruit . "\n";
+}
+
+// 多维数组
+$matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+
+
+函数特性
+// 可变长度参数列表 (PHP 5.6+)
+function sum(...$numbers) {
+    return array_sum($numbers);
+}
+
+
