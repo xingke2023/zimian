@@ -1,3 +1,5 @@
+https://www.php.net/manual/zh/
+
 
 $fruits = array("Apple", "Banana", "Orange");
 
@@ -28,4 +30,41 @@ function sum(...$numbers) {
     return array_sum($numbers);
 }
 
+// 类型声明 (PHP 7+)
+function add(int $a, int $b): int {
+    return $a + $b;
+}
 
+
+类：
+// 继承
+parent::__construct($name, $age);
+
+// 方法重写
+    public function greet() {
+        return parent::greet() . " and I study " . $this->major;
+    }
+
+// 特质 (Trait, PHP 5.4+)
+trait Timestamp {
+    public function getTimestamp() {
+        return date('Y-m-d H:i:s');
+    }
+}
+
+
+// 空合并运算符
+$username = $_GET['user'] ?? 'guest';
+
+
+// 生成器
+function xrange($start, $limit, $step = 1) {
+    for ($i = $start; $i <= $limit; $i += $step) {
+        yield $i;
+    }
+}
+
+
+
+静态方法中不能使用 $this
+常用作工具方法：与特定实例无关的通用功能
