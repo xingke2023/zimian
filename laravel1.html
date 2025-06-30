@@ -61,5 +61,24 @@ beike 开发教程
 上面的命令将在 app/View/Components/Forms 目录中创建一个 Input 组件，并且该视图将被放置在该 resources/views/components/forms 目录中
 上面的命令将创建一个 Blade 文件，该文件 resources/views/components/forms/input.blade.php 可以通过 <x-forms.input /> 呈现为组件
 
+有时，组件是组件组的一部分
+当组件的文件名与组件目录的名称匹配时
+render the component without repeating the directory name
 
+您可以使用 HTML 属性将数据传递给 Blade 组件
+primitive values may be passed to the component using simple HTML attribute strings
+PHP expressions and variables should be passed to the component via attributes that use the : character as a prefix
+您应该在其类构造函数中定义组件的所有 data 属性。组件上的所有公共属性将自动提供给组件的视图。没有必要从组件的 render 方法将数据传递给视图
+当你的组件被渲染时，你可以通过按名称回显变量来显示组件的公共变量的内容
+public string $alertType,
+<x-alert alert-type="danger" />
+将 attribute 传递给组件时，您还可以使用 “short attribute” 语法。这通常很方便，因为属性名称经常与它们对应的变量名称匹配
+<x-profile :$userId :$name />
+
+  有时，组件可能需要在组件内的不同位置渲染多个不同的插槽
+  您可以使用 x-slot 标签定义命名槽的内容
+  不在显式 x-slot 标记中的任何内容都将传递到 $slot 变量中的组件
+
+  您可以使用组件 Blade 模板顶部的 @props 指令指定哪些属性应被视为数据变量
+  
 
