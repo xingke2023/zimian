@@ -1,0 +1,22 @@
+zb模版的意义点
+
+{if $type=='article'}
+
+{if $type=='index'&&$page=='1'}  /*判断首页*/
+{if $type=='category'}  /*判断分类页*/
+{if $type=='article'}  /*判断日志页，不含独立页面，{if $article.Type==ZC_POST_TYPE_ARTICLE}（另一方案）*/
+{if $type=='page'}  /*判断独立页面*/
+{if $type=='author'}  /*判断用户页*/
+{if $type=='date'}  /*判断日期页*/
+{if $type=='tag'}  /*判断标签页*/
+
+首页和分类列表页分离
+在index.php文件里作判断，分离模板
+{if $type=='index'&&$page=='1'} 
+{template:c_index}
+{else}
+{template:c_list}
+{/if}
+
+
+
